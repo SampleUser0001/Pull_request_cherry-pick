@@ -5,12 +5,14 @@ from .model import PullRequestModel
 import os
 from sqlalchemy import create_engine
 
+from importenv import ImportEnvKeyEnum
+
 PYTHON_APP_HOME = os.getenv('PYTHON_APP_HOME')
-DB_PATH = ['files','db','db.sqlite3']
+
 
 class PullRequestRepository():
     def __init__(self) -> None:
-        engine = create_engine('sqlite://' + os.path.join(PYTHON_APP_HOME, *DB_PATH), echo=True)
+        engine = create_engine('sqlite://' + os.path.join(PYTHON_APP_HOME, *ImportEnvKeyEnum.DB_PATH), echo=True)
         Session = sessionmaker(bind=engine)
         self.session = Session()
 
